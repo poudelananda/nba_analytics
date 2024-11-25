@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .tab-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        text-align: center;
+        border: none;
+        outline: none;
+        transition:0.4s;
+        font-size: medium;
+        font-weight: 1000;
+        font-size: 25px;
+    }
+
+    .active, .accordion:hover {
+        background-color: #ccc;
+    }
+
+    .panel {
+        padding: 0 18px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max height 0.2s ease-out;
+    }
+
+    .accordion:after {
+        content: '\02795';
+        font-size: 13px;
+        color: #777;
+        float: right;
+        margin-left: 5px;
+    }
+
+    .active:after {
+        content: '\2796';
+    }
+
+    .panel {
+        background-color: antiquewhite;
+        text-align: center;
+    }
+
+
+</style>
+<body>
+    <h1>NBA Analytics</h1>
+    <div class="tab-container">
+        <button class="accordion" style = 'color: darksalmon'>Player Statistics</button>
+        <div class ="panel">
+            <p>This report looks into a player's overall performance. Select a player from the dropdown to assess their overall performance for this season.</p>
+            <form id="player-overall-performance-button" method="POST" action="/player-performance" enctype="multipart/form-data">
+                <input list="player-names" name="player" placeholder="Select a player">
+                <datalist id="player-names">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </datalist>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        //Accordion
+        var acc = document.getElementsByClassName('accordion');
+        var i;
+        for (i = 0; i < acc.length; i++){
+            acc[i].addEventListener('click', function(){
+                this.classList.toggle('active');
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight){
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+
+        
+        
+    </script>
+
+</body>
+</html>
