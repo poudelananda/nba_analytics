@@ -64,14 +64,14 @@
         <button class="accordion" style = 'color: darksalmon'>Player Statistics</button>
         <div class ="panel">
             <p>This report looks into a player's overall performance. Select a player from the dropdown to assess their overall performance for this season.</p>
-            <form id="player-overall-performance-button" method="POST" action="/player-performance" enctype="multipart/form-data">
-                <input list="player-names" name="player" placeholder="Select a player">
+            <form id="player-overall-performance-button" method="POST" action="/player-data" enctype="multipart/form-data">
+                <input list="player-names" name="player-names" placeholder="Select a player">
                 <datalist id="player-names">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
                 </datalist>
-                <button type="submit">Submit</button>
+                <button id="player-submit" type="submit">Submit</button>
             </form>
         </div>
     </div>
@@ -91,8 +91,6 @@
                 }
             });
         }
-
-        
         
     </script>
 
